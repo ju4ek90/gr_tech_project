@@ -5,8 +5,6 @@ import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 import static api.tests.enums.ApplicationProperties.HTTP_HOST;
 
 public class GRApiClient {
@@ -70,25 +68,6 @@ public class GRApiClient {
             logger.error("Error occurred while retrieving {} where parameters {} with expected statusCode {}", endpoint, paramValue, statusCode);
         }
         return response;
-    }
-
-
-    public static List<String> getResponseForEndpointWithPagination(String endpoint, int statusCode) {
-        List<String> characterUrls = getResponseForEndpoint(endpoint, statusCode).jsonPath().getList("results.url");
-
-        int i = 2;
-        String check = "";
-        while (check != null) {
-            try {
-                check = getResponseForEndpoint(endpoint + "/?page=" + i, statusCode).jsonPath().get("next").toString();
-            } catch (Exception e) {
-                break;
-            }
-            List<String> characterUrlsTemp = getResponseForEndpoint(endpoint + "/?page=" + i, statusCode).jsonPath().getList("results.url");
-            characterUrls.addAll(characterUrlsTemp);
-            i++;
-        }
-        return characterUrls;
     }
 
 }

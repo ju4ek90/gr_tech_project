@@ -15,9 +15,10 @@ _ testLimitPerPage
   ! need to discuss Case-Sensitivity
 - testHeadersAdded
   Description: Verification that all expected headers added and not null or empty
+  ! need to discuss what headers are more important. Because now this test is NOT STABLE
 - testHeaderValues  
   Description: Validation of headers value (for some of them)
-  ! need to discuss what headers are more important
+  ! need to discuss what headers are more important. Because now this test is NOT STABLE
 - testValidInQuerySearchEndpoint
   Description: Validate that search accept expected characters, and return correct results
   ! found unexpected behaviour
@@ -40,10 +41,35 @@ Scenarios that also should be included to test suit:
 - More cases for unexpected characters (fot this I need review more documentation for understand requirements)
 - testDataSearchAutocompleteEndpoint (the same as for Search Endpoint)
 - HTTP requests for Endpoints
-- What will be if we will send unexpected request (as example POST)
+- What will be if we will send unexpected request (as example POST, DELETE, UPDATE)
 - Send request with unexpected headers or header Values
 - Send request with employ/null/incorrect query parameters
 - Send request with unexpected query parameters name (as example not per_page, but perpage)
 
+___________________________________________________________________________________________________________________
+List Breweries testing
+
+-Frameworks and libraries: 
+Java, TestNG, RestAssured, JsonSchemaValidation, JsonPath
+-Approach for creating API testing framework:
+DDT (TestNG give us possibility to use the same scenario with different test data. You can see the same approach in
+ this repo as well)
++ KDT (SendRequest, VerifyResponse, SendRequestWithParams, VerifySchema, and other can be in separated class
+for not repeat code. They will be our keys)
+Explanation: List Breweries has a lot of possible parameters and filters, sorting possibilities. We can use 
+  dataProvider from testNG for create different data for each needed testCase. Also use KDT for not cope a lot 
+  of code.
+-Types of testing we can use:
+  Functional, Negative, Performance (if need for this we can use linearScript framework, k6, and mocks), Security 
+  testing (http request, not https. Check if we can send DELETE, UPDATE)
+-Technics for using:
+  Equivalence Partitioning, Boundary Value Analysis, Error Guessing, Pairwise Testing
+-CI/CD decision:
+For have possibility to run tests on different envs and remotely we can create ApplicationProperty enum (as in this repo),
+  where we can specify env and other parameters for run. And set all resources links in application.properties file (also in this 
+  project).
+  
+Also, I think it's could be necessary to separate tests by groups (regression, sanity). And specify in 
+a pipeline what and when should be run.
 
   

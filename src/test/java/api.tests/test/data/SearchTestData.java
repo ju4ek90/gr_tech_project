@@ -10,8 +10,6 @@ import static api.tests.api.GREndpoints.*;
 public class SearchTestData {
 
     public static final String QUERY = "query";
-    public static final String SEARCHED_DATA = "san diego";
-    public static final String SEARCHED_DATA2 = "diego";
     public static final String ALL = "*";
     public static final String PER_PAGE = "per_page";
     public static final List<String> headerNamesList = Arrays.asList("Date", "Content-Type", "Transfer-Encoding", "Connection",

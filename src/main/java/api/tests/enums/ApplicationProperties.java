@@ -11,7 +11,7 @@ import java.util.Properties;
 public enum ApplicationProperties {
     HTTP_HOST("http.host"),
 
-    ENV("qa"),
+    ENV("prod"),
     RUN_STATE("local");
 
     static Properties properties = new Properties();
@@ -25,7 +25,7 @@ public enum ApplicationProperties {
         ENV.name = Optional.ofNullable(System.getProperty("env"))
                 .orElse(ENV.name);
 
-        //LOGGER.info("Running in environment: {}", ENV.name);
+        LOGGER.info("Running in environment: {}", ENV.name);
         String envPropertiesFileName = String.format("properties/%s.application.properties", ENV.name);
 
         try (

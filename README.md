@@ -3,11 +3,12 @@ Testing OpenBrewerydb API
 
 For open testing project, please clone this repository.
 At SearchBreweriesTests you can find 8 scenarios with different testCases:
+
  - testPagination 
    Description: Validation that for Endpoints we can choose how many entities would like to see per a page
    ! not working for Autocomplete Endpoint
 _ testLimitPerPage
-   Description: Validation that for Autocomplete Endpoints limit entities per a page no more than 15
+   Description: Validation that for Autocomplete Endpoints limit entities per a page (15)
 - testJsonSchemaForEndpoint
   Description: Json schema validation for both endpoints
 - testIncorrectEndpointName
@@ -47,24 +48,31 @@ Scenarios that also should be included to test suit:
 - Send request with unexpected query parameters name (as example not per_page, but perpage)
 
 ___________________________________________________________________________________________________________________
-List Breweries testing
+List Breweries testing 
 
--Frameworks and libraries: 
+- Frameworks and libraries: 
 Java, TestNG, RestAssured, JsonSchemaValidation, JsonPath
--Approach for creating API testing framework:
+  
+
+- Approach for creating API testing framework:
 DDT (TestNG give us possibility to use the same scenario with different test data. You can see the same approach in
- this repo as well)
-+ KDT (SendRequest, VerifyResponse, SendRequestWithParams, VerifySchema, and other can be in separated class
+ this repo as well) + KDT (SendRequest, VerifyResponse, SendRequestWithParams, VerifySchema, and other can be in separated class
 for not repeat code. They will be our keys)
 Explanation: List Breweries has a lot of possible parameters and filters, sorting possibilities. We can use 
   dataProvider from testNG for create different data for each needed testCase. Also use KDT for not cope a lot 
   of code.
--Types of testing we can use:
+
+
+- Types of testing we can use:
   Functional, Negative, Performance (if need for this we can use linearScript framework, k6, and mocks), Security 
   testing (http request, not https. Check if we can send DELETE, UPDATE)
--Technics for using:
+
+
+- Technics for using:
   Equivalence Partitioning, Boundary Value Analysis, Error Guessing, Pairwise Testing
--CI/CD decision:
+
+
+- CI/CD decision:
 For have possibility to run tests on different envs and remotely we can create ApplicationProperty enum (as in this repo),
   where we can specify env and other parameters for run. And set all resources links in application.properties file (also in this 
   project).
